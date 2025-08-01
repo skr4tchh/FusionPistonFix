@@ -10,11 +10,20 @@ import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
+
 public final class FusionPistonFix extends JavaPlugin implements Listener {
+
+    private List<String> excludedBlocks;
 
     public void onEnable() {
         saveDefaultConfig();
+        loadConfiguration();
         Bukkit.getPluginManager().registerEvents(this, this);
+    }
+
+    private void loadConfiguration() {
+        this.excludedBlocks = getConfig().getStringList("excluded-blocks");
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -25,7 +34,7 @@ public final class FusionPistonFix extends JavaPlugin implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onBlockRetract(BlockPistonRetractEvent event) {
         for (Block block : event.getBlocks()) {
-            if (!getConfig().getStringList("excluded-blocks").contains(block.getType().toString())) {
+            if (!excludedBlocks.contains(block.getType().toString())) {
                 event.setCancelled(false);
                 return;
             }
