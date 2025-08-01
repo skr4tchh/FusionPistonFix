@@ -1,0 +1,4 @@
+name: FusionPistonFix
+version: '${version}'
+main: fun.fusionmine.fusionpistonfix.FusionPistonFix
+api-version: '1.16'

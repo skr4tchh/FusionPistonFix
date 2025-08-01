@@ -1,0 +1,4 @@
+# Какие блоки нельзя загриферить поршнями
+excluded-blocks:
+  - CRAFTING_TABLE
+  - FURNACE
